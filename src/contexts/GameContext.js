@@ -9,22 +9,23 @@ const initialSquares = Array(9).fill(null);
 
 const GameProvider = ({children, oIsNext}) => {
 
-    console.log(oIsNext);
     const [ history, setHistory ] = useState([{squares:initialSquares}]);
     const [ stepNumber, setStepNumber ] = useState(0);
     const [ xIsNext, setXIsNext ] = useState(!oIsNext);
     const [ winner, setWinner ] = useState(null);
 
+
     const getCurrentSquares = (history, stepNumber) => {
       return history[stepNumber].squares.slice();
     }
+
     const handleClick = (i) => {
 
         const squares = getCurrentSquares(history, stepNumber);
-        
         if (winner || squares[i]) {
           return;
         }
+
         squares[i] = xIsNext ? "X" : "O";
         setHistory(
           history.slice(0, stepNumber + 1).concat([
@@ -40,6 +41,7 @@ const GameProvider = ({children, oIsNext}) => {
 
     useEffect(() => {
       jumpTo(history.length - 1);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[history]);
 
     useEffect(() => {
@@ -70,7 +72,7 @@ const GameProvider = ({children, oIsNext}) => {
       }
 
       return (
-        <GameContext.Provider value={{winner, xIsNext, jumpTo, handleClick, history, stepNumber }} >
+        <GameContext.Provider value={{winner, xIsNext, jumpTo, handleClick, history, stepNumber}} >
           {children}
         </GameContext.Provider>
       );

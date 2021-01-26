@@ -13,7 +13,8 @@ function Board () {
       } 
 
       return (
-          [0,1,2].map((rowIndex) => (<div key={rowIndex}>
+          [0,1,2].map((rowIndex) => (
+          <div key={rowIndex}>
             {[0,1,2].map((columnIndex) => {
               const squareIndex = rowIndex * 3 + columnIndex;
               return renderSquare(squareIndex);
