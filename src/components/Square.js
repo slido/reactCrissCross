@@ -12,7 +12,7 @@ function Square(props) {
     }
 
     return (
-      <button className="square" onClick={() => {gameContext.handleClick(props.index)}}>
+      <button className="square" onClick={() => { gameContext.handleClick(props.index) }}>
         {currentStep.squares[props.index]}
       </button>
     );

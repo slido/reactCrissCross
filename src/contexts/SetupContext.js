@@ -1,6 +1,5 @@
 import React, {
     createContext,
-    useEffect,
     useState,
   } from "react";
 
@@ -31,24 +30,39 @@ const SetupProvider = ({children}) => {
 
     
     const random = () => {
-      const players = ["x", "o"];
+      const players = ["true", "false"];
       return Math.floor(Math.random() * players.length);
     };
     
 
-      const handleAddrTypeChange = (e) => {
-        console.log(e.currentTarget.value);
+    const handleAddrTypeChange = (e) => {
 
-        setGameStates([...gameStates, { oIsNext: false }]);
-        
-        setModalIsOpenToFalse();
+      switch (e.currentTarget.value) {
+        case 'x':
+            setGameStates([...gameStates, { oIsNext: false }]);
+            break;
+    
+        case 'o':
+            setGameStates([...gameStates, { oIsNext: true }]);
+            break;
+
+        case 'r':
+            setGameStates([...gameStates, { oIsNext: random() }]);
+            break;
+    
+        default:
+            // do nothing
     }
 
-      return (
-        <SetupContext.Provider value={{ gameStates, items, handleAddrTypeChange, modalIsOpen, setModalIsOpenToTrue, setModalIsOpenToFalse }} >
-          {children}
-        </SetupContext.Provider>
-      );
+      
+      setModalIsOpenToFalse();
+    }
+
+    return (
+      <SetupContext.Provider value={{ gameStates, items, handleAddrTypeChange, modalIsOpen, setModalIsOpenToTrue, setModalIsOpenToFalse }} >
+        {children}
+      </SetupContext.Provider>
+    );
 
 };
 
